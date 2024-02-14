@@ -24,5 +24,11 @@
     ![](/img/11.png)
 # ejercicio 1
 ![](/img/12.png)
+- 1FN:
+![](/img/13.png)
+- 2FN:
+![](/img/14.png)
 
+# ejercicio 2
+![](/img/15.png)
 
