@@ -32,3 +32,65 @@
 # ejercicio 2
 ![](/img/15.png)
 
+## Programas para arquitectura de DB
+### Ejercicio de viajes
+- StartUML:
+![](/img/16.png)
+- MySQL Workbench:
+![](/img/17.png)
+## Conceptos TABLAS DB
+![](/img/18.png)
+## Configuracion CLIENTE (MySQL)
+
+### Comandos:
+```
+user@root:~$ mysql -h localhost -u root -p
+```
+Ver que base de datos tenemos
+```
+mysql> show databases;
+```
+Crear base de datos
+```
+mysql> create database viajes;
+```
+Trabajar sobre una base de datos
+```
+mysql> use viajes;
+```
+Ver tablas de mi base de datos
+```
+mysql> show tables;
+```
+Crear tabla
+```
+mysql> create table Vehiculo(
+    -> placa_veh varchar(6) primary key,
+    -> tipo_veh varchar(100) not null,
+    -> conductor_veh varchar(100) not null);
+
+mysql> create table if not exists Vehiculo(
+    -> placa_veh varchar(6) primary key,
+    -> tipo_veh varchar(100) not null,
+    -> conductor_veh varchar(100) not null);
+
+```
+Ver tabla
+```
+mysql> describe Vehiculo;
+```
+Borrar tabla
+```
+mysql> drop table Vehiculo;
+mysql> drop table if exists Vehiculo;
+```
+Conceptos
+- DDL: CRREAR
+- DSL: ACCEDER
+- DML: MODIFICAR 
+
+Crear un indice(llave tiplo multiple)
+```
+mysql> create index idx_vehiculo_conductor_veh
+    -> on Vehiculo(conductor_veh);
+```
