@@ -3,9 +3,9 @@ Se nos da el modelo E-R:
 - Apartir deL E-R ahi debemos crear el modelo relacional desde startUML y MySQL Workbrench. 
 - Luego crear diseño fisico (script SQL)
 ## MODELO E-R:
-![](/bancoBD/img/1.png)
+![](ejerciciosBD/bancoBD/img/1.png)
 ## MODELO RELACIONAL:
-![](/bancoBD/img/2.png)
+![](ejerciciosBD/bancoBD/img/2.png)
 ## SCRIP SQL (MODELADO FISICO)
 ```
 -- Active: 1708071252028@@127.0.0.1@3306
