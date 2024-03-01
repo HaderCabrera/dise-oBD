@@ -1,0 +1,21 @@
+---
+marp: true
+---
+Fronent (Bulma, js), BD (google firebase).
+
+# PROYECTO METODOLOGIA AGILES (SERVICIOS PUBLICOS)
+Necesitamos crear el sistema de pago de facturas para los servicios publicos(luz, agua, gas).
+### REQUERIMIENTOS:
+- **TIEMPO DE ENTREGA DEL PRODUCTO:** 27 de febrero.
+- **DISEÑAR INTERFAZ USER-FRIENDLY**
+- **DISEÑAR INTERFAZ DE CONSULTA DE FACTURA**
+- **DISEÑAR INTERFAZ DE PAGO DE FACTURA**
+- **DISEÑAR BAJO UN PROTOCOLO DE SEGURIDAD PARA LOS PAGOS**
+- **DISEÑAR INTERFAZ PARA LOS DIFERENTES METODOS DE PAGO:** TDC, PSE.
+- **TECNOLOGIAS ESCOGIDAD:** Fronent (Bulma, js), BD (google firebase)
+- **ESCOGER EL TIPO DE PLATAFORMA (SITIO WEB)**
+- **ANALIZAR EL MANEJO DE INFORMACION EN NUESTRA BD**
+
+
+
+
