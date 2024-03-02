@@ -10,7 +10,7 @@ select * from country;
 -- a mayor y si hay dos ciudades con la misma poblacion mostrarlas en orden alfabetico
 -- (HACER BIEN CON CIUDAD NO CON PAIS)
 	SELECT  Name, Population 
-    FROM country
+    FROM city
 	WHERE Population < 1000000
     order by Population, Name;
 -- mostrar los tres paises con mayor poblacion de sur america
@@ -21,10 +21,10 @@ select * from country;
     limit 3;
 -- mostrar los idiomas no oficiales hablados en Colombia. Los idiomas deben estar ordenados ascendentemente por el porcentaje de habla.alter
 -- el codigo de colombia es "COL"
-	SELECT  CountryCode, Percentage, IsOfficial 
+	SELECT  CountryCode, Percentage, IsOfficial , language
     FROM countrylanguage
     where CountryCode = "COL" and IsOfficial = "F"
-	order by Percentage desc;
+	order by Percentage desc, language;
 
 -- mostrar los 5 paises de EUropa con menor expectativa de vida
 	SELECT  Continent, LifeExpectancy, Name
@@ -32,3 +32,4 @@ select * from country;
     where Continent = "Europe" and LifeExpectancy <> "NULL"
 	order by LifeExpectancy
     limit 5;
+    

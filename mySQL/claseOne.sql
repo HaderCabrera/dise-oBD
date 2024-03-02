@@ -14,19 +14,23 @@ create table Temp (
 );
 
 drop table Temp;
+
 -- modificar tabla ya creada
 alter table pais add primary key (id);
+
 -- mostrar estructura de tabla
 describe pais;
+
+-- mostrar como va quedando la abse de datos
+select * from pais;
+
 -- crear copia de una tabla
 create table Temp as select * from pais;
 -- DML
 	-- INSERTAR datos en la tabla
 		insert into pais(id, nombre, continente, poblacion)
 		values (101, "Colombia", "Sur America", 500000);
-		
-		-- mostrar como va quedando la abse de datos
-		select * from pais;
+
 		-- SIN un atributo
 		insert into pais(id, nombre, continente)
 		values (102, "Venezuela", "Sur America");
