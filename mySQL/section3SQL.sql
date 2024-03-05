@@ -150,22 +150,27 @@
     limit 5;
 		-- EJERCICIO: construya un listado con el primer nombre de los paises con nombres compuestos.Ordene el listado
         -- por nombre de pais
-			select locate(' ',name) as POS_G,
-            substring(name, 1, 'POS_G') as "Sigla de la ubicacion",
-            name
-			from country
-			limit 5;
-            
 			select substr(name, 1, locate(' ', name)) as Primer_Nombre, name as pais, locate(' ', name) as compuesto
             from country
             where locate(' ', name) > 0
             order by pais;
             
 	-- 7. TRIM: Quito los espacios al principoio y al final (existe el PRIMT() a la derecha, LTRIM() a la izquierda)
-    
-    select  TRIM(substr(name, 1, locate(' ', name))) as Primer_Nombre,
-		name as pais,
-        locate(' ', name) as compuesto
-	from country
-    where locate(' ', name) > 0
-    order by pais;
+		select  TRIM(substr(name, 1, locate(' ', name))) as Primer_Nombre,
+			name as pais,
+			locate(' ', name) as compuesto
+		from country
+		where locate(' ', name) > 0
+		order by pais;
+	-- 8. REPLACE: reemplaza una subcadena por otra sucadena.
+		select name, replace(name, 'Gu', 'HAAAAAAAAAAAA') as REEMPLAZO
+        from country
+        where region = 'South America';
+		
+        -- EJERCICIO: Mostrar el listado de los paises en los cuales es posible el reemplazo.
+		select name, replace(name, 'Gu', 'HAAAAAAAAAAAA') as REEMPLAZO
+        from country
+		where region = 'South America' and name <> replace(name, 'Gu', 'HAAAAAAAAAAAA')  ;
+		
+        select * from country;
+
