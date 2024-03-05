@@ -33,11 +33,22 @@ where region = "";
     -- También indique  que países hablan ese idioma. El listado debe estar ordenado alfabéticamente por  nombre de país. 
     
 	select * from countrylanguage;
-    select L.Language, 
+    select * from country;
+    select L.Language, L.CountryCode as codigoPais,
     length(L.Language) as tamaño
     from world.countrylanguage as L
     order by tamaño desc
-    limit 2;
+    limit 20;
+			-- -----------
+			select P.Name as ECNOTNRE
+            from world.country as P
+            where P.Code = (
+				select L.CountryCode as codigoPais
+				from world.countrylanguage as L
+                where L.CountryCode = 'DEU'
+                limit 1
+            );
+    
     
     -- 2.2 Muestre un listado del año de independencia de cada país. Si aún no se ha  independizado muestre el vano “N/A”
     
