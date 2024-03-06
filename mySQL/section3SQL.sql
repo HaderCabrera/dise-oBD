@@ -109,13 +109,16 @@
     show columns from country;
     show table status like "Libro";
     
+        show table status like "country";
+    
     select *
     FROM INFORMATION_SCHEMA.COLUMNS
     WHERE TABLE_NAME = "Libro";
     
 	select *
     FROM INFORMATION_SCHEMA.tables
-    WHERE TABLE_SCHEMA = "librery";
+    WHERE TABLE_SCHEMA = "world";
+    use world;
     
 -- Funciones y comandos en Campos de mySQL
 	-- 1.CONCAT: Concatena dos o mas cadenas de texto.

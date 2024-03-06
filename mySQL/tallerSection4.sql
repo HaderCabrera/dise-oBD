@@ -21,13 +21,13 @@ where region = "";
 	-- 1.1 Seleccione los nombres de todos los gatos machos que no tienen un juguete favorito. 
     select name
     from veterinaria
-    where sex = 'M' and fac_toy = null;
+    where sex = 'M' and fac_toy is null;
     
     -- 1.2 Seleccione el ID, el nombre, la raza y la coloración de todos los gatos que son  hembras, 
 	-- que adicionalmente les gusten los juguetes provocadores y que no sean de  raza persa o siamesa.
     select id, name, breed, coloration
     from veterinaria
-    where sex = 'H' and fac_toy = 'provocadores' and breed <> 'siamesa' and breed <> 'persa';
+    where sex = 'H' and fac_toy = 'provocadores' and breed <> 'siamesa' or breed <> 'persa';
     
     -- 2.1 Cual es el idioma con el nombre más largo hablado en el mundo. 
     -- También indique  que países hablan ese idioma. El listado debe estar ordenado alfabéticamente por  nombre de país. 
@@ -52,9 +52,15 @@ where region = "";
     
     -- 2.2 Muestre un listado del año de independencia de cada país. Si aún no se ha  independizado muestre el vano “N/A”
     
-    
-    
-    
+    -- EJERCICIO QUE PASO EL PROFESOR POR DISCOR
+    select
+        if(locate(" ", seg_nombre) = 0, 
+                seg_nombre,
+                substr(seg_nombre, 1, locate(" ", seg_nombre)-1) ) as segundo_nombre
+		from
+			(select substr(name, locate(" ", name) + 1) as seg_nombre
+			from world.country
+			where Continent = "Europe" and locate(" ", name) > 0) as S;
     
     
     
