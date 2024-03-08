@@ -49,9 +49,8 @@ where region = "";
                 limit 1
             );
     
-    
     -- 2.2 Muestre un listado del año de independencia de cada país. Si aún no se ha  independizado muestre el vano “N/A”
-    
+    -- VERIFICA R FUNCIONAMIENTO DE distinct
     -- EJERCICIO QUE PASO EL PROFESOR POR DISCOR
     select
         if(locate(" ", seg_nombre) = 0, 
