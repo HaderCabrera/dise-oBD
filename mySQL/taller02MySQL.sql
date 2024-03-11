@@ -1,4 +1,68 @@
-	DROP DATABASE IF EXISTS tienda;
+-- 1.1 Mostrar todas las ciudades de Colombia.
+use world;
+select C.Name
+from world.country as P
+inner join world.city as C on P.Code = C.CountryCode
+where P.Code = 'COL';
+
+-- 1.2 Mostrar la 5 ciudades más pobladas de América, Europa, Asia y África. Ordenar el
+-- informe por Continente, luego descendentemente por ciudades.
+
+drop table MASpOBLADAS;
+CREATE TABLE MASpOBLADAS
+AS
+	(select *
+	from (
+		select C.Name, P.Continent as continente, C.Population as Poblacion
+		from world.country as P
+		inner join world.city as C on P.Code = C.CountryCode
+		where P.Continent = 'Africa' 
+		order by Poblacion desc
+		limit 5
+	)a
+    
+	union
+    
+	select *
+	from (
+		select C.Name, P.Continent as continente, C.Population as Poblacion
+		from world.country as P
+		inner join world.city as C on P.Code = C.CountryCode
+		where P.Continent = 'Asia' 
+		order by Poblacion desc
+		limit 5
+	)b
+	union
+
+	select *
+	from (
+		select C.Name, P.Continent as continente, C.Population as Poblacion
+		from world.country as P
+		inner join world.city as C on P.Code = C.CountryCode
+		where P.Continent = 'Europe' 
+		order by Poblacion desc
+		limit 5
+	) c
+	union
+	select *
+	from (
+		select C.Name, P.Continent as continente, C.Population as Poblacion
+		from world.country as P
+		inner join world.city as C on P.Code = C.CountryCode
+		where P.Continent = 'North America' or P.Continent = 'South America' 
+		order by Poblacion desc
+		limit 5
+	)d ) ;
+
+select *
+from MASpOBLADAS
+order by MASpOBLADAS.continente, MASpOBLADAS.Name desc;
+select * from city;
+select * from country;
+
+-- ----
+
+DROP DATABASE IF EXISTS tienda;
 CREATE DATABASE tienda CHARACTER SET utf8mb4;
 USE tienda;
 CREATE TABLE fabricante (
