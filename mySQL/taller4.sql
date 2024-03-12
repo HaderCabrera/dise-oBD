@@ -54,11 +54,6 @@ INSERT INTO producto VALUES(11, 'Impresora HP Laserjet Pro M26nw', 180, 3);
 					join tienda.fabricante as F on P.id_fabricante = F.id
 				) as productosFabricantes;
                 
-                select * 
-                from tienda.productosFabricantes as GG
-                where GG.fabricantre = 'Asus';
-                
-                select length(tienda.productosFabricantes);
                 
                 SELECT F.nombre
 				FROM tienda.fabricante as F
@@ -67,7 +62,27 @@ INSERT INTO producto VALUES(11, 'Impresora HP Laserjet Pro M26nw', 180, 3);
 				GROUP BY F.nombre;	
                 use tienda;
 					
-				
+				-- SOLCUION COMPAÑERO
+                SELECT distinct f.nombre
+                from fabricante as f 
+                inner join producto as P on P.id_fabricante = f.id
+                where (
+					select count(*)
+                    from producto as p
+                    where p.id_fabricante = f.id
+                ) >= 2;
+	 -- el de cristian
+     
+     select f.id, f.nombre, p.precio as MayorPrecio
+     from fabricante as f
+     inner join producto as p on p.id_fabricante = f.id
+     where p.precio = (
+		select max(p.precio)
+        from producto as p
+        where p.id_fabricante = f.id
+     )
+     order by f.nombre;
+     
                 
 			
 
