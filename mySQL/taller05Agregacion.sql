@@ -12,9 +12,8 @@ select count(*)
 from tienda.fabricante;
 
 -- 1.3 Calcula el número de valores distintos de identificador de fabricante aparecen en la tabla productos.
-select fabricante.id as Identificador
-from tienda.fabricante
-group by Identificador;
+select count( distinct id_fabricante)
+from tienda.producto;
 
 -- 1.4 	Calcula la media del precio de todos los productos.
 select avg(precio) as Media
@@ -56,6 +55,7 @@ from tienda.fabricante as F
 inner join tienda.producto as P on F.id = P.id_fabricante
 group by F.id) as estadisticasFabrica
 where estadisticasFabrica.precio_promedio > 200 ;
+-- integrar having (where del group by) para evitar subconsulta.
 
 -- 1.9 Muestra el nombre de cada fabricante, junto con el precio máximo, precio mínimo, 
 -- precio medio y el número total de productos de los fabricantes que tienen un precio medio superior a 200€. 

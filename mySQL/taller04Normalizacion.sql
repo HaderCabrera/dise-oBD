@@ -125,6 +125,7 @@ create table Medicamento (
     foreign key (TratamiendoID) references Tratamiento(TratamiendoID)
 );
 
+-- 1.6 
 
 
     
