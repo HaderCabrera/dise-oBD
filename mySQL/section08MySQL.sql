@@ -209,8 +209,63 @@ call world.ListarCiudadesPais('colombia');
 	-- actualizar datos (transacciones)
     
     
-    -- EJERCICIOS:
-    -- 1. 
-
-
-
+-- EJERCICIOS:
+	-- 1. Construya el procedimiento almacenado que saque todos los empleados que se dieron de
+	-- 		alta entre una determinada fecha inicial y fecha final y que pertenecen a un determinado
+	-- 		departamento.
+	drop procedure coquettePeopleCountry;
+    delimiter $$
+    CREATE PROCEDURE coquettePeopleCountry(IN dateIni DATE, IN dateFin DATE, IN oficioEmpleado VARCHAR(50))
+	BEGIN
+		select *
+        from Hospital.Emp as E
+        where E.Oficio = oficioEmpleado AND 
+			  Fecha_Alt > dateIni AND 
+              Fecha_Alt < dateFin;
+    END $$
+    delimiter ;
+    
+    -- 2. Construya el procedimiento que inserte un empleado.
+	drop procedure insertarEmpleado;
+    delimiter $$
+    CREATE PROCEDURE insertarEmpleado(IN Emp_No INT, IN Apellido VARCHAR(50), IN Oficio VARCHAR(50), IN Dir INT, IN Fecha_Alt DATE, IN Salario NUMERIC(9,2), IN Comision NUMERIC(9,2), IN Dept_No INT)
+    BEGIN
+		INSERT INTO Emp( Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No)
+		VALUES (Emp_No, Apellido, Oficio, Dir, Fecha_Alt, Salario, Comision, Dept_No);
+    END $$
+    delimiter ;
+	
+    -- 3. Construya el procedimiento que recupere el nombre, número y número de personas a
+	-- partir del número de departamento.
+	drop procedure mostrarCantidadDepartamento;
+    delimiter $$
+    CREATE PROCEDURE mostrarCantidadDepartamento( IN Dept_No INT)
+    BEGIN
+		select H.DNombre as nomDept, H.Dept_No as codDept, count(*) as Cantidad
+        FROM Hospital.Dept as H
+		inner join Hospital.Emp as E on H.Dept_No = E.Dept_No
+        group by H.Dept_No
+        having Dept_No = codDept;
+    END $$
+    delimiter ;
+    
+	-- 4. Diseñe y construya un procedimiento igual que el anterior, pero que recupere también las
+	-- personas que trabajan en dicho departamento, pasándole como parámetro el nombre.
+  	drop procedure mostrarEmpleadosDepartamento;
+    delimiter $$
+    CREATE PROCEDURE mostrarEmpleadosDepartamento( IN DNombre INT)
+    BEGIN
+		select *, count(*) as Cantidad
+        FROM Hospital.Emp as E
+		inner join Hospital.Dept as H on H.Dept_No = E.Dept_No
+        group by E.DNombre
+        having DNombre = H.DNombre;
+    END $$
+    delimiter ;  
+    
+    
+    
+    
+    
+    
+    

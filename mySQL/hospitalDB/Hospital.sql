@@ -1,3 +1,5 @@
+CREATE DATABASE Hospital;
+
 USE Hospital;
 
 CREATE TABLE Dept
@@ -18,7 +20,7 @@ CREATE TABLE Emp
 	Salario			NUMERIC(9,2)	NULL,
 	Comision		NUMERIC(9,2)	NULL,
 	Dept_No			INT				NULL,
-	CONSTRAINT PK_Emp PRIMARY KEY(Emp_No),
+	PRIMARY KEY(Emp_No),
 	CONSTRAINT FK_Emp_Dept FOREIGN KEY (Dept_No) REFERENCES Dept(Dept_No)
 );
 
