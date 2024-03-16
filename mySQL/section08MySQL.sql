@@ -213,6 +213,7 @@ call world.ListarCiudadesPais('colombia');
 	-- 1. Construya el procedimiento almacenado que saque todos los empleados que se dieron de
 	-- 		alta entre una determinada fecha inicial y fecha final y que pertenecen a un determinado
 	-- 		departamento.
+    use Hospital;
 	drop procedure coquettePeopleCountry;
     delimiter $$
     CREATE PROCEDURE coquettePeopleCountry(IN dateIni DATE, IN dateFin DATE, IN oficioEmpleado VARCHAR(50))
@@ -253,15 +254,58 @@ call world.ListarCiudadesPais('colombia');
 	-- personas que trabajan en dicho departamento, pasándole como parámetro el nombre.
   	drop procedure mostrarEmpleadosDepartamento;
     delimiter $$
-    CREATE PROCEDURE mostrarEmpleadosDepartamento( IN DNombre INT)
+    CREATE PROCEDURE mostrarEmpleadosDepartamento( IN DNombre VARCHAR(50))
     BEGIN
-		select *, count(*) as Cantidad
-        FROM Hospital.Emp as E
-		inner join Hospital.Dept as H on H.Dept_No = E.Dept_No
-        group by E.DNombre
-        having DNombre = H.DNombre;
+		select *
+        FROM Hospital.Dept as D
+		inner join Hospital.Emp as E on D.Dept_No = E.Dept_No
+        group by DNombre;
+        -- having DNombre = H.DNombre;
     END $$
-    delimiter ;  
+    delimiter ;
+    
+	-- PARTE DOS DEL TALLER
+    -- 1. Crear un procedimiento que recupere el número departamento, el nombre y número de
+	-- empleados, dándole como valor el nombre del departamento, si el nombre introducido no
+	-- es válido, mostraremos un mensaje informativo comunicándolo.
+    use Hospital;
+	drop procedure mostrarInformacionDepartamento;
+	delimiter $$
+	CREATE PROCEDURE mostrarInformacionDepartamento( IN Dept_Name VARCHAR(50))
+	BEGIN
+		DECLARE bandera BOOL;
+		select if (true, true, false) into bandera;
+        select (bandera);
+		select H.Dept_No as codDept, H.DNombre as nomDept, count(*) as Cantidad
+		FROM Hospital.Dept as H
+		inner join Hospital.Emp as E on H.Dept_No = E.Dept_No
+		group by H.Dept_No
+		having Dept_Name = nomDept;
+	END $$
+	delimiter ;
+    
+			/*CREATE TABLE error_logs(
+			id INT AUTO_INCREMENT,
+			nombre VARCHAR(255),
+			PRIMARY KEY (id));
+            INSERT INTO error_logs(nombre) VALUES ('NO EXITE ');*/
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    -- USAR BASE DE DATPS SUBTIENDA
+
+    
+    
     
     
     
