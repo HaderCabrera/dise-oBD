@@ -88,3 +88,4 @@ CALL RealizarVenta(5, 1, 2); -- Venta del Producto 5 al Cliente 1 con cantidad 2
 
 
 
+

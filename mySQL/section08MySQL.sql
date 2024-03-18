@@ -272,37 +272,111 @@ call world.ListarCiudadesPais('colombia');
 	drop procedure mostrarInformacionDepartamento;
 	delimiter $$
 	CREATE PROCEDURE mostrarInformacionDepartamento( IN Dept_Name VARCHAR(50))
-	BEGIN
-		DECLARE bandera BOOL;
-		select if (true, true, false) into bandera;
-        select (bandera);
-		select H.Dept_No as codDept, H.DNombre as nomDept, count(*) as Cantidad
-		FROM Hospital.Dept as H
-		inner join Hospital.Emp as E on H.Dept_No = E.Dept_No
-		group by H.Dept_No
-		having Dept_Name = nomDept;
-	END $$
-	delimiter ;
+		BEGIN
+			MYLOOP: LOOP
+				select H.Dept_No as codDept, H.DNombre as nomDept, count(*) as Cantidad
+				FROM Hospital.Dept as H
+				inner join Hospital.Emp as E on H.Dept_No = E.Dept_No
+				group by H.Dept_No
+				having Dept_Name = nomDept;
+				if Dept_Name = ' ' or Dept_Name = '' THEN
+					select 'Nombre invalido.' as Error;
+					LEAVE MYLOOP;
+				END IF;
+                LEAVE MYLOOP;
+			END LOOP;
+		END $$
+		delimiter ;
     
 			/*CREATE TABLE error_logs(
 			id INT AUTO_INCREMENT,
 			nombre VARCHAR(255),
 			PRIMARY KEY (id));
             INSERT INTO error_logs(nombre) VALUES ('NO EXITE ');*/
+            
+	-- 2. Crear un procedimiento para devolver un informe sobre los empleados de la plantilla de
+	-- un determinado hospital, sala, turno o función. El informe mostrará número de empleados,
+	-- media, suma y un informe personalizado de cada uno que muestre número de empleado,
+	-- apellido y salario.
     
+    drop procedure mostrarPlantillaFiltrada;
+	delimiter $$
+	CREATE PROCEDURE mostrarPlantillaFiltrada( IN filtrarPor VARCHAR(50), IN valorFiltrar VARCHAR(50))
+		BEGIN
+			CASE filtrarPor
+				WHEN 'hospital' THEN 
+                    select valorFiltrar as Hospital, format(avg(P.Salario), 1) as Promedio, format(sum(P.Salario), 1) as Suma, count(*) as Empleados 
+                    from Hospital.Plantilla as P
+                    group by Hospital_Cod
+                    having Hospital_Cod = valorFiltrar;
+                    -- SELECT PARA LOS EMPLEADOS
+                    select valorFiltrar as Hospital, P.Empleado_No as empNum, P.Apellido as Apellido, P.Salario as Salario
+                    from Hospital.Plantilla as P
+                    where Hospital_Cod = valorFiltrar;
+				WHEN 'sala' THEN 
+                    select valorFiltrar as Sala, format(avg(P.Salario), 1) as Promedio, format(sum(P.Salario), 1) as Suma, count(*) as Empleados  
+                    from Hospital.Plantilla as P
+                    group by Sala_Cod
+                    having Sala_Cod = valorFiltrar;
+					-- SELECT PARA LOS EMPLEADOS
+                    select valorFiltrar as Sala, P.Empleado_No as empNum, P.Apellido as Apellido, P.Salario as Salario
+                    from Hospital.Plantilla as P
+                    where Sala_Cod = valorFiltrar;
+				WHEN 'turno' THEN 
+                    select valorFiltrar as Turno, format(avg(P.Salario), 1) as Promedio, format(sum(P.Salario), 1) as Suma, count(*) as Empleados  
+                    from Hospital.Plantilla as P
+                    group by T
+                    having T = valorFiltrar;
+					-- SELECT PARA LOS EMPLEADOS
+                    select valorFiltrar as Turno, P.Empleado_No as empNum, P.Apellido as Apellido, P.Salario as Salario
+                    from Hospital.Plantilla as P
+                    where T = valorFiltrar;
+				WHEN 'funcion' THEN 
+                    select valorFiltrar as Funcion, format(avg(P.Salario), 1) as Promedio, format(sum(P.Salario), 1) as Suma, count(*) as Empleados  
+                    from Hospital.Plantilla as P
+                    group by Funcion
+                    having Funcion = valorFiltrar;
+					-- SELECT PARA LOS EMPLEADOS
+                    select valorFiltrar as Funcion, P.Empleado_No as empNum, P.Apellido as Apellido, P.Salario as Salario
+                    from Hospital.Plantilla as P
+                    where Funcion = valorFiltrar;
+				ELSE select ('Campo inexistente en plantilla');
+			END CASE;
+		END $$
+	delimiter ;
+
+	-- 3. Crear un procedimiento en el que pasaremos como parámetro el Apellido de un
+	-- empleado. El procedimiento devolverá los subordinados del empleado escrito, si el
+	-- empleado no existe en la base de datos, informaremos de ello, si el empleado no tiene
+	-- subordinados, lo informa remos con un mensaje y mostraremos su jefe. Mostrar el
+	-- número de empleado, Apellido, Oficio y Departamento de los subordinados.
+	
+    drop procedure mostrarDirectores;
+    delimiter $$
+    create procedure mostrarDirectores(IN apellido VARCHAR(50))
+    BEGIN
+        select *
+        from Hospital.Emp as E
+        where E.Dir = (	select E.Emp_No
+						from Hospital.Emp as E
+						where E.Apellido = apellido);
+    END $$
+    delimiter ;
     
+    -- 4.Crear procedimiento que borre un empleado que coincida con los parámetros indicados
+	-- (los parámetros serán todos los campos de la tabla empleado).
     
+	drop procedure buscarEmpleado;
+    delimiter $$
+    create procedure buscarEmpleado(IN buscar VARCHAR(50))
+    BEGIN
+        select *
+        from Hospital.Emp as E
+        -- or buscar =  Comision
+        where buscar = Emp_No or buscar = Apellido or buscar = Oficio or buscar = Salario or buscar = Dept_No;
+    END $$
+    delimiter ;
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    -- USAR BASE DE DATPS SUBTIENDA
 
     
     
